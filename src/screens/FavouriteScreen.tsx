@@ -1,31 +1,35 @@
-import { View, Text, StyleSheet, FlatList, SafeAreaView } from 'react-native';
-import React from 'react';
-import { booksData } from '../data/mockedBooks';
-import FavoriteCard from '../components/FavouriteCard';
+import { StyleSheet, FlatList, SafeAreaView } from "react-native";
+import React from "react";
+import FavoriteCard from "../components/FavouriteCard";
+import BookDetail from "../types/bookDetail";
 
-export default function FavouriteScreen(props: any) {
-    return (
-        <SafeAreaView>
-            <FlatList
-                data={booksData}
-                renderItem={(items) => (
-                    <FavoriteCard
-                        id={`#00${items.index}`}
-                        data={items.item}
-                    //navigation={props.navigation}
-                    />
-                )}
-                keyExtractor={(item) => item.booksName}
-            />
-        </SafeAreaView>
-    );
+interface FavouriteScreenProps {
+  booksList: BookDetail[];
+}
+
+export default function FavouriteScreen({ booksList }: FavouriteScreenProps) {
+  return (
+    <SafeAreaView>
+      <FlatList
+        data={booksList}
+        renderItem={(book) => (
+          <FavoriteCard
+            id={book.item._id}
+            book={book.item}
+            //navigation={props.navigation}
+          />
+        )}
+        keyExtractor={(item) => item.booksName}
+      />
+    </SafeAreaView>
+  );
 }
 
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        marginTop: 10,
-        marginHorizontal: 10,
-        flexDirection: 'row',
-    },
+  container: {
+    flex: 1,
+    marginTop: 10,
+    marginHorizontal: 10,
+    flexDirection: "row",
+  },
 });
